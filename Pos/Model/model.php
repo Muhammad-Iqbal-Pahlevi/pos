@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . "/../Database/conect.php";
+require_once __DIR__ . "/../DB/conect.php";
 require_once __DIR__ . "/../interface/Model-Interface.php";
 
 abstract class Model extends Conect implements ModelInterface{
@@ -69,5 +69,19 @@ abstract class Model extends Conect implements ModelInterface{
         return $result;
     }
     
+
+    public function search_data($keyword, $table) {
+        $query = "SELECT * FROM $table $keyword";
+        $result = mysqli_query($this->db, $query);
+
+        return $this->convert_data($result);
+    }
+
+    public function paginate_data($table, $start, $limit) {
+        $query = "SELECT * FROM $table LIMIT $start, $limit";
+        $result = mysqli_query($this->db, $query);
+
+        return $this->convert_data($result);
+    }
 }
 

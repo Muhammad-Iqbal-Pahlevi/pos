@@ -4,20 +4,19 @@
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <title>Ecommerce Dashboard &mdash; Stisla</title>
-
-  <!-- General CSS Files -->
-  <link rel="stylesheet" href="../dist/assets/modules/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../dist/assets/modules/fontawesome/css/all.min.css">
+<!-- General CSS Files -->
+<link rel="stylesheet" href="../assets/modules/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/modules/fontawesome/css/all.min.css">
 
   <!-- CSS Libraries -->
-  <link rel="stylesheet" href="../dist/assets/modules/jqvmap/dist/jqvmap.min.css">
-  <link rel="stylesheet" href="../dist/assets/modules/summernote/summernote-bs4.css">
-  <link rel="stylesheet" href="../dist/assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css">
-  <link rel="stylesheet" href="../dist/assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css">
+  <link rel="stylesheet" href="../assets/modules/jqvmap/dist/jqvmap.min.css">
+  <link rel="stylesheet" href="../assets/modules/summernote/summernote-bs4.css">
+  <link rel="stylesheet" href="../assets/modules/owlcarousel2/dist/assets/owl.carousel.min.css">
+  <link rel="stylesheet" href="../assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css">
 
   <!-- Template CSS -->
-  <link rel="stylesheet" href="../dist/assets/css/style.css">
-  <link rel="stylesheet" href="../dist/assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
 <!-- Start GA -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
 <script>
@@ -157,7 +156,7 @@
                 <div class="card-body" id="top-5-scroll">
                   <ul class="list-unstyled list-unstyled-border">
                     <li class="media">
-                      <img class="mr-3 rounded" width="55" src="assets/img/products/product-3-50.png" alt="product">
+                      <img class="mr-3 rounded" width="55" src="../assets/img/products/product-3-50.png" alt="product">
                       <div class="media-body">
                         <div class="float-right"><div class="font-weight-600 text-muted text-small">86 Sales</div></div>
                         <div class="media-title">oPhone S9 Limited</div>
@@ -174,7 +173,7 @@
                       </div>
                     </li>
                     <li class="media">
-                      <img class="mr-3 rounded" width="55" src="assets/img/products/product-4-50.png" alt="product">
+                      <img class="mr-3 rounded" width="55" src="../assets/img/products/product-4-50.png" alt="product">
                       <div class="media-body">
                         <div class="float-right"><div class="font-weight-600 text-muted text-small">67 Sales</div></div>
                         <div class="media-title">iBook Pro 2018</div>
@@ -191,7 +190,7 @@
                       </div>
                     </li>
                     <li class="media">
-                      <img class="mr-3 rounded" width="55" src="assets/img/products/product-1-50.png" alt="product">
+                      <img class="mr-3 rounded" width="55" src="../assets/img/products/product-1-50.png" alt="product">
                       <div class="media-body">
                         <div class="float-right"><div class="font-weight-600 text-muted text-small">63 Sales</div></div>
                         <div class="media-title">Headphone Blitz</div>
@@ -208,7 +207,7 @@
                       </div>
                     </li>
                     <li class="media">
-                      <img class="mr-3 rounded" width="55" src="assets/img/products/product-3-50.png" alt="product">
+                      <img class="mr-3 rounded" width="55" src="../assets/img/products/product-3-50.png" alt="product">
                       <div class="media-body">
                         <div class="float-right"><div class="font-weight-600 text-muted text-small">28 Sales</div></div>
                         <div class="media-title">oPhone X Lite</div>
@@ -225,7 +224,7 @@
                       </div>
                     </li>
                     <li class="media">
-                      <img class="mr-3 rounded" width="55" src="assets/img/products/product-5-50.png" alt="product">
+                      <img class="mr-3 rounded" width="55" src="../assets/img/products/product-5-50.png" alt="product">
                       <div class="media-body">
                         <div class="float-right"><div class="font-weight-600 text-muted text-small">19 Sales</div></div>
                         <div class="media-title">Old Camera</div>
@@ -267,7 +266,7 @@
                     <div>
                       <div class="product-item pb-3">
                         <div class="product-image">
-                          <img alt="image" src="assets/img/products/product-4-50.png" class="img-fluid">
+                          <img alt="image" src="../assets/img/products/product-4-50.png" class="img-fluid">
                         </div>
                         <div class="product-details">
                           <div class="product-name">iBook Pro 2018</div>
@@ -288,7 +287,7 @@
                     <div>
                       <div class="product-item">
                         <div class="product-image">
-                          <img alt="image" src="assets/img/products/product-3-50.png" class="img-fluid">
+                          <img alt="image" src="../assets/img/products/product-3-50.png" class="img-fluid">
                         </div>
                         <div class="product-details">
                           <div class="product-name">oPhone S9 Limited</div>
@@ -309,7 +308,7 @@
                     <div>
                       <div class="product-item">
                         <div class="product-image">
-                          <img alt="image" src="assets/img/products/product-1-50.png" class="img-fluid">
+                          <img alt="image" src="../assets/img/products/product-1-50.png" class="img-fluid">
                         </div>
                         <div class="product-details">
                           <div class="product-name">Headphone Blitz</div>
@@ -342,21 +341,21 @@
                       <div class="text-title mb-2">July</div>
                       <ul class="list-unstyled list-unstyled-border list-unstyled-noborder mb-0">
                         <li class="media">
-                          <img class="img-fluid mt-1 img-shadow" src="assets/modules/flag-icon-css/flags/4x3/id.svg" alt="image" width="40">
+                          <img class="img-fluid mt-1 img-shadow" src="../assets/modules/flag-icon-css/flags/4x3/id.svg" alt="image" width="40">
                           <div class="media-body ml-3">
                             <div class="media-title">Indonesia</div>
                             <div class="text-small text-muted">3,282 <i class="fas fa-caret-down text-danger"></i></div>
                           </div>
                         </li>
                         <li class="media">
-                          <img class="img-fluid mt-1 img-shadow" src="assets/modules/flag-icon-css/flags/4x3/my.svg" alt="image" width="40">
+                          <img class="img-fluid mt-1 img-shadow" src="../assets/modules/flag-icon-css/flags/4x3/my.svg" alt="image" width="40">
                           <div class="media-body ml-3">
                             <div class="media-title">Malaysia</div>
                             <div class="text-small text-muted">2,976 <i class="fas fa-caret-down text-danger"></i></div>
                           </div>
                         </li>
                         <li class="media">
-                          <img class="img-fluid mt-1 img-shadow" src="assets/modules/flag-icon-css/flags/4x3/us.svg" alt="image" width="40">
+                          <img class="img-fluid mt-1 img-shadow" src="../assets/modules/flag-icon-css/flags/4x3/us.svg" alt="image" width="40">
                           <div class="media-body ml-3">
                             <div class="media-title">United States</div>
                             <div class="text-small text-muted">1,576 <i class="fas fa-caret-up text-success"></i></div>
@@ -368,21 +367,21 @@
                       <div class="text-title mb-2">August</div>
                       <ul class="list-unstyled list-unstyled-border list-unstyled-noborder mb-0">
                         <li class="media">
-                          <img class="img-fluid mt-1 img-shadow" src="assets/modules/flag-icon-css/flags/4x3/id.svg" alt="image" width="40">
+                          <img class="img-fluid mt-1 img-shadow" src="../assets/modules/flag-icon-css/flags/4x3/id.svg" alt="image" width="40">
                           <div class="media-body ml-3">
                             <div class="media-title">Indonesia</div>
                             <div class="text-small text-muted">3,486 <i class="fas fa-caret-up text-success"></i></div>
                           </div>
                         </li>
                         <li class="media">
-                          <img class="img-fluid mt-1 img-shadow" src="assets/modules/flag-icon-css/flags/4x3/ps.svg" alt="image" width="40">
+                          <img class="img-fluid mt-1 img-shadow" src="../assets/modules/flag-icon-css/flags/4x3/ps.svg" alt="image" width="40">
                           <div class="media-body ml-3">
                             <div class="media-title">Palestine</div>
                             <div class="text-small text-muted">3,182 <i class="fas fa-caret-up text-success"></i></div>
                           </div>
                         </li>
                         <li class="media">
-                          <img class="img-fluid mt-1 img-shadow" src="assets/modules/flag-icon-css/flags/4x3/de.svg" alt="image" width="40">
+                          <img class="img-fluid mt-1 img-shadow" src="../assets/modules/flag-icon-css/flags/4x3/de.svg" alt="image" width="40">
                           <div class="media-body ml-3">
                             <div class="media-title">Germany</div>
                             <div class="text-small text-muted">2,317 <i class="fas fa-caret-down text-danger"></i></div>
@@ -520,26 +519,28 @@
   </div>
 
   <!-- General JS Scripts -->
-  <script src="../dist/assets/modules/jquery.min.js"></script>
-  <script src="../dist/assets/modules/popper.js"></script>
-  <script src="../dist/assets/modules/tooltip.js"></script>
-  <script src="../dist/assets/modules/bootstrap/js/bootstrap.min.js"></script>
-  <script src="../dist/assets/modules/nicescroll/jquery.nicescroll.min.js"></script>
-  <script src="../dist/assets/modules/moment.min.js"></script>
-  <script src="../dist/assets/js/stisla.js"></script>
+  
+  <!-- General JS Scripts -->
+  <script src="../assets/modules/jquery.min.js"></script>
+  <script src="../assets/modules/popper.js"></script>
+  <script src="../assets/modules/tooltip.js"></script>
+  <script src="../assets/modules/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../assets/modules/nicescroll/jquery.nicescroll.min.js"></script>
+  <script src="../assets/modules/moment.min.js"></script>
+  <script src="../assets/js/stisla.js"></script>
   
   <!-- JS Libraies -->
-  <script src="../dist/assets/modules/jquery.sparkline.min.js"></script>
-  <script src="../dist/assets/modules/chart.min.js"></script>
-  <script src="../dist/assets/modules/owlcarousel2/dist/owl.carousel.min.js"></script>
-  <script src="../dist/assets/modules/summernote/summernote-bs4.js"></script>
-  <script src="../dist/assets/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
+  <script src="../assets/modules/jquery.sparkline.min.js"></script>
+  <script src="../assets/modules/chart.min.js"></script>
+  <script src="../assets/modules/owlcarousel2/dist/owl.carousel.min.js"></script>
+  <script src="../assets/modules/summernote/summernote-bs4.js"></script>
+  <script src="../assets/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
 
   <!-- Page Specific JS File -->
-  <script src="../dist/assets/js/page/index.js"></script>
+  <script src="../assets/js/page/index.js"></script>
   
   <!-- Template JS File -->
-  <script src="../dist/assets/js/scripts.js"></script>
-  <script src="../dist/assets/js/custom.js"></script>
+  <script src="../assets/js/scripts.js"></script>
+  <script src="../assets/js/custom.js"></script>
 </body>
 </html>
