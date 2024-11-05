@@ -5,9 +5,20 @@ require_once __DIR__ . "/../Model/model.php";
 require_once __DIR__ . "/../Model/Category.php";
 
 $keyword = $_GET["keyword"];
-$kategori = new Categories();
-$categories = $kategori->search($keyword);
+$categories = new Categories();
 
+// Ambil parameter dari request
+$keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
+$limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 3;
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$startData = ($page - 1) * $limit;
+
+// Ambil total data hasil pencarian
+$totalData = count($categories->search($keyword)); // Pastikan ada fungsi search yang mengembalikan semua data yang cocok
+$totalPages = ceil($totalData / $limit);
+
+// Ambil data dengan paginasi
+$categories = $categories->search($keyword, $startData, $limit); // Pastikan ada fungsi ini
 
 ?>
 
@@ -42,6 +53,5 @@ $categories = $kategori->search($keyword);
                 </tr>
             <?php endforeach; ?>
         </table>
-        
     </div>
 </div>

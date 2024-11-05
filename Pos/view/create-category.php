@@ -6,7 +6,6 @@ require_once __DIR__ . "/../Model/Category.php";
 
 
 if (isset($_POST['submit'])) {
-  // var_dump($_POST);
   $category = [
     "name" => $_POST['name']
   ];
@@ -19,9 +18,8 @@ if (isset($_POST['submit'])) {
   if($result !== false){
     echo "<script>alert('Kategori berhasil ditambahkan dengan nama {$result['name']}'); window.location = 'create-category.php';</script>;";
     die;
-  };
-} 
-
+  }
+}
 ?>
 
 <!DOCTYPE html>

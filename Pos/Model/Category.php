@@ -29,10 +29,20 @@ class Categories extends Model{
           return parent::delete_data($id, $this->table);
        }
 
-       public function search($keyword){
-        $keyword = "WHERE name LIKE '%{$keyword}%'";
-        return parent::search_data($keyword, $this->table);
-       }
+       public function search($keyword, $start = null, $limit = null)
+    {
+      $queryLimit = '';
+      if(isset($start) && isset($limit)){
+         $queryLimit = " LIMIT $start, $limit";
+      }
+      $keyword = " WHERE name LIKE '%{$keyword}%' $queryLimit";
+      return parent::search_data($keyword, $this->table);
+    }
+
+      //  public function search($keyword){
+      //   $keyword = "WHERE name LIKE '%{$keyword}%'";
+      //   return parent::search_data($keyword, $this->table);
+      //  }
 
        public function paginate($start, $limit){
         return parent::paginate_data($this->table, $start, $limit);

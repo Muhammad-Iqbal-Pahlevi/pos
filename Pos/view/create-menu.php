@@ -1,3 +1,34 @@
+<?php
+
+require_once __DIR__ . "/../Model/model.php";
+require_once __DIR__ . "/../Model/Category.php";
+require_once __DIR__ . "/../Model/Menu.php";
+
+$categories = new Categories();
+$categories->all();
+$categories = $categories->all();
+
+$menu = new Menu();
+
+if(isset($_POST["submit"])){
+  // var_dump($_POST);
+  $datas = [
+    "post" => $_POST,
+    "files" => $_FILES,
+  ];
+  $result = $menu->create($datas);
+
+  if(gettype($result) == "string"){
+    echo "<script>alert('{$result}'); window.location = 'create-menu.php';</script>;";
+  }else{
+    echo "<script>alert('Menu berhasil ditambahkan'); window.location = 'create-menu.php';</script>;";
+  }
+}
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,40 +92,37 @@
                   <div class="card-header">
                     <h4>Isi Form Ini</h4>
                   </div>
-                  <div class="card-body">
+                  <form action="" method="post" class="card-body" enctype="multipart/form-data">
                     <div class="form-group">
-                      <label>Masukan Menu Baru</label>
-                      <input type="text" class="form-control">
+                      <label for="name">Masukan Menu Baru</label>
+                      <input type="text" class="form-control" name="name" id="name">
                     </div>
                     <div class="form-group">
-                        <label class="form-control-label ">Pilih Gambar</label>
+                        <label class="form-control-label " for="attachment">Pilih Gambar</label>
                         <div class="">
                           <div class="custom-file">
-                            <input type="file" name="site_logo" class="custom-file-input" id="site-logo">
+                            <input type="file" name="attachment" id="attachment" class="custom-file-input" id="site-logo">
                             <label class="custom-file-label">Choose File</label>
                           </div>
                           <div class="form-text text-muted">The image must have a maximum size of 1MB</div>
                         </div>
                     </div>
                     <div class="form-group">
-                      <label>jQuery Selectric</label>
-                      <select class="form-control selectric">
-                        <option>Option 1</option>
-                        <option>Option 2</option>
-                        <option>Option 3</option>
-                        <option>Option 4</option>
-                        <option>Option 5</option>
-                        <option>Option 6</option>
+                      <label for="category_id">Pilih Category</label>
+                      <select name="category_id" id="category_id" class="form-control selectric">
+                        <?php foreach ($categories as $category) : ?>
+                        <option value="<?= $category["id"] ?>"><?= $category["name"] ?></option>
+                        <?php endforeach; ?>
                       </select>
                     </div>
                     <div class="form-group">
-                      <label>Price</label>
-                      <input type="number" class="form-control">
+                      <label for="price">Price</label>
+                      <input type="number" class="form-control" name="price" id="price">
                     </div>
                     <div class="d-flex justify-content-end">
-                      <button class="btn btn-primary" type="submit">Tambahkan</button>
+                      <button class="btn btn-primary" type="submit" name="submit">Tambahkan</button>
                     </div>
-                  </div>
+                  </form>
                 </div>
               </div>
               <div class="col-12 col-md-6 col-lg-6 d-flex align-items-center">

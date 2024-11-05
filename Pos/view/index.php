@@ -1,3 +1,19 @@
+<?php
+
+require_once __DIR__ . "/../Model/model.php";
+require_once __DIR__ . "/../Model/Menu.php";
+require_once __DIR__ . "/../Model/Category.php";
+
+
+$categories = new Categories();
+$categories = $categories->all();
+
+$menus = new Menu();
+$menus = $menus->all();
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,12 +80,12 @@
                   </div>
                   <div class="card-stats-items">
                     <div class="card-stats-item">
-                      <div class="card-stats-item-count">24</div>
-                      <div class="card-stats-item-label">Pending</div>
+                      <div class="card-stats-item-count"><?= count($menus); ?></div>
+                      <div class="card-stats-item-label">Menu</div>
                     </div>
                     <div class="card-stats-item">
-                      <div class="card-stats-item-count">12</div>
-                      <div class="card-stats-item-label">Shipping</div>
+                      <div class="card-stats-item-count"><?= count($categories  ); ?></div>
+                      <div class="card-stats-item-label">Category</div>
                     </div>
                     <div class="card-stats-item">
                       <div class="card-stats-item-count">23</div>
@@ -82,10 +98,10 @@
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>Total Orders</h4>
+                    <h4>Menu</h4>
                   </div>
                   <div class="card-body">
-                    59
+                   <?= count($menus); ?>
                   </div>
                 </div>
               </div>

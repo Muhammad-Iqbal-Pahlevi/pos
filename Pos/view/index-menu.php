@@ -4,7 +4,18 @@ require_once __DIR__ . "/../Model/model.php";
 require_once __DIR__ . "/../Model/Menu.php";
 
 $menus = new Menu();
-$menus = $menus->paginate(0, 1);
+
+$limit = 3;
+$pageActive = isset($_GET["page"]) ? (int)$_GET["page"] : 1;
+$totalData = count($menus->all());
+$totalPages = ceil($totalData / $limit);
+
+$startData = ($pageActive - 1) * $limit;
+
+$menus = $menus->paginate($startData, $limit); // Fungsi ini akan kita buat
+
+$prev = ($pageActive > 1) ? $pageActive - 1 : 1;
+$next = ($pageActive < $totalPages) ? $pageActive + 1 : $totalPages;
 
 
 ?>
@@ -86,24 +97,53 @@ $menus = $menus->paginate(0, 1);
                           </th>
                           <th>Name</th>
                           <th>Attachment</th>
+                          <th>Category_id</th>
                           <th>Price</th>
+                          <th>Action</th>
                         </tr>
                         <?php foreach ($menus as $menu) : ?>
-                        <tr>
-                          <td>
-                            <div class="custom-checkbox custom-control">
-                              <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-1">
-                              <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
-                            </div>
-                          </td>
-                          <td><?= $menu["name"] ?></td>
-                          <td>
-                            <img alt="image" src="../dist/assets/img/avatar/avatar-5.png" class="rounded-circle" width="35" data-toggle="tooltip" title="Wildan Ahdian">
-                          </td>
-                          <td>Rp. <?= $menu["price"] ?></td>
-                        </tr>
+                          <tr>
+                            <td>
+                              <div class="custom-checkbox custom-control">
+                                <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-1">
+                                <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
+                              </div>
+                            </td>
+                            <td><?= $menu["name"] ?></td>
+                            <td>
+                              <img alt="image" src="../public/img/items/<?= $menu["attachment"] ?>" class="rounded-circle" width="35" data-toggle="tooltip" title="Wildan Ahdian">
+                            </td>
+                            <td class=""><?= $menu["category_id"] ?></td>
+                            <td>Rp. <?= $menu["price"] ?></td>
+                            <td>
+                              <a href="#" class="btn btn-primary"><i class="fas fa-info-circle"></i></a>
+                              <a href="#" class="btn btn-success"><i class="far fa-edit"></i></a>
+                              <a href="#" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                            </td>
+                          </tr>
                         <?php endforeach; ?>
                       </table>
+                      <div class="">
+                        <nav aria-label="Page navigation example">
+                          <ul class="pagination mx-auto">
+                            <li class="page-item <?= ($pageActive <= 1) ? 'disabled' : '' ?>">
+                              <a class="page-link" href="?page=<?= $prev ?>" aria-label="Previous">
+                                Prev
+                              </a>
+                            </li>
+                            <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
+                              <li class="page-item <?= ($pageActive == $i) ? 'active' : '' ?>">
+                                <a class="page-link" href="<?= ($pageActive == $i) ? '#' : '?page=' . $i ?>" tabindex="-1"><?= $i ?></a>
+                              </li>
+                            <?php endfor; ?>
+                            <li class="page-item <?= ($pageActive >= $totalPages) ? 'disabled' : '' ?>">
+                              <a class="page-link" href="?page=<?= $next ?>" aria-label="Next">
+                                Next
+                              </a>
+                            </li>
+                          </ul>
+                        </nav>
+                      </div>
                     </div>
                   </div>
                 </div>
