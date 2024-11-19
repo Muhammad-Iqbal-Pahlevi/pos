@@ -3,6 +3,11 @@
 require_once __DIR__ . "/../Model/model.php";
 require_once __DIR__ . "/../Model/Category.php";
 
+if (!isset($_SESSION["full_name"])) {
+  header("Location: login.php");
+  exit;
+}
+
 $categories = new Categories();
 
 // Set limit data per halaman
@@ -33,6 +38,7 @@ $next = ($pageActive < $totalPages) ? $pageActive + 1 : $totalPages;
   <link rel="stylesheet" href="../assets/modules/fontawesome/css/all.min.css">
 
   <!-- CSS Libraries -->
+  <link rel="stylesheet" href="../assets/modules/prism/prism.css">
 
   <!-- Template CSS -->
   <link rel="stylesheet" href="../assets/css/style.css">
@@ -87,7 +93,7 @@ $next = ($pageActive < $totalPages) ? $pageActive + 1 : $totalPages;
                   </div>
                   <div class="card-body p-0">
                     <div class="table-responsive d-flex row">
-                    <table class="table table-striped" id="container">
+                      <table class="table table-striped" id="container">
                         <tr>
                           <th>
                             <div class="custom-checkbox custom-control">
@@ -98,7 +104,7 @@ $next = ($pageActive < $totalPages) ? $pageActive + 1 : $totalPages;
                           <th>Name</th>
                           <th>Action</th>
                         </tr>
-                        <?php foreach ($categories as $cateory) : ?>
+                        <?php foreach ($categories as $category) : ?>
                           <tr>
                             <td>
                               <div class="custom-checkbox custom-control">
@@ -106,44 +112,16 @@ $next = ($pageActive < $totalPages) ? $pageActive + 1 : $totalPages;
                                 <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
                               </div>
                             </td>
-                            <td><?= $cateory["name"] ?></td>
+                            <td><?= $category["name_category"] ?></td>
                             <td>
-                              <a href="#" class="btn btn-primary"><i class="fas fa-info-circle"></i></a>
-                              <a href="#" class="btn btn-success"><i class="far fa-edit"></i></a>
-                              <a href="#" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                              <button class="btn btn-primary" onclick="modalDetail(<?= $category['id_category'] ?>, '<?= $category['name_category'] ?>')"><i class="fas fa-info-circle" ></i></button>
+                              <a href="../service/edit-category.php?id=<?= $category['id_category'] ?>" class="btn btn-success"><i class="far fa-edit"></i></a>
+                              <a href="../service/delete-category.php?id=<?= $category['id_category'] ?>" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
                             </td>
                           </tr>
                         <?php endforeach; ?>
                       </table>
-                      <!-- <table class="table table-striped" id="container">
-                        <tr>
-                          <th>
-                            <div class="custom-checkbox custom-control">
-                              <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
-                              <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
-                            </div>
-                          </th>
-                          <th>Task Name</th>
-                          <th>Action</th>
-                        </tr>
-                        <?php foreach ($categories as $categori) : ?>
-                          <tr>
-                            <td>
-                              <div class="custom-checkbox custom-control">
-                                <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-1">
-                                <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
-                              </div>
-                            </td>
-                            <td><?= $categori["name"] ?></td>
-                            <td>
-                              <a href="#" class="btn btn-primary"><i class="fas fa-info-circle"></i></a>
-                              <a href="#" class="btn btn-success"><i class="far fa-edit"></i></a>
-                              <a href="#" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
-                            </td>
-                          </tr>
-                        <?php endforeach; ?>
-
-                      </table> -->
+                     
 
                       <!-- Pagination navigation -->
                       <div class="buttons mx-auto">
@@ -155,9 +133,9 @@ $next = ($pageActive < $totalPages) ? $pageActive + 1 : $totalPages;
                               </a>
                             </li>
                             <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
-                            <li class="page-item <?= ($pageActive == $i) ? 'active' : '' ?>">
-                              <a class="page-link" href="<?= ($pageActive == $i) ? '#' : '?page=' . $i ?>" tabindex="-1"><?= $i ?></a>
-                            </li>
+                              <li class="page-item <?= ($pageActive == $i) ? 'active' : '' ?>">
+                                <a class="page-link" href="<?= ($pageActive == $i) ? '#' : '?page=' . $i ?>" tabindex="-1"><?= $i ?></a>
+                              </li>
                             <?php endfor; ?>
                             <li class="page-item <?= ($pageActive >= $totalPages) ? 'disabled' : '' ?>">
                               <a class="page-link" href="?page=<?= $next ?>" aria-label="Next">
@@ -177,6 +155,26 @@ $next = ($pageActive < $totalPages) ? $pageActive + 1 : $totalPages;
       </div>
       <?php include('../component/layout/footer.php'); ?>
     </div>
+
+     <!-- modal -->
+     <div class="modal fade" tabindex="-1" role="dialog" id="detailModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- <p>Modal body text goes here.</p> -->
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- General JS Scripts -->
@@ -189,8 +187,10 @@ $next = ($pageActive < $totalPages) ? $pageActive + 1 : $totalPages;
   <script src="../assets/js/stisla.js"></script>
 
   <!-- JS Libraies -->
+  <script src="../assets/modules/prism/prism.js"></script>
 
   <!-- Page Specific JS File -->
+  <script src="../assets/js/page/bootstrap-modal.js"></script>
 
   <!-- Template JS File -->
   <script src="../assets/js/scripts.js"></script>
@@ -203,7 +203,19 @@ $next = ($pageActive < $totalPages) ? $pageActive + 1 : $totalPages;
     keyword.on("keyup", () => {
       console.log(keyword.val())
       container.load("Search-Category.php?keyword=" + keyword.val())
-    })
+    });
+
+    function modalDetail(id, name) {
+        $('#detailModal .modal').empty();
+        let content = '<ul>';
+        content += `<li><strong>Id: </strong>${id}</li>`;
+        content += `<li><strong>Name: </strong>${name}</li>`;
+        content += '</ul>';
+
+        $('#detailModal .modal-body').html(content);
+        $('#detailModal .modal-title').text('Category Detail');
+        $('#detailModal').modal('show');  
+    }
   </script>
 </body>
 

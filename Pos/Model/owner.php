@@ -6,6 +6,7 @@ require_once __DIR__ . "/model.php";
 class Owner extends Model{
 
     protected $table = "owner";
+    protected $primaryKey = "id_sale";
 
        public function create($datas){
           return parent::create_data($datas, $this->table);
@@ -17,14 +18,14 @@ class Owner extends Model{
 
 
        public function find($id){
-          return parent::find_data($id, $this->table);
+          return parent::find_data($id, $this->primaryKey, $this->table);
        }
 
        public function update($id, $datas){
-          return parent::update_data($id, $datas, $this->table);
+          return parent::update_data($id, $this->primaryKey, $datas, $this->table);
        }
 
        public function delete($id){
-          return parent::delete_data($id, $this->table);
+          return parent::delete_data($id, $this->primaryKey, $this->table);
        }
 }

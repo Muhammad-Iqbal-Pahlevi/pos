@@ -5,23 +5,31 @@ require_once __DIR__ . "/../Model/Menu.php";
 require_once __DIR__ . "/../Model/Category.php";
 
 
+
+
+if (!isset($_SESSION["full_name"])) {
+  header("Location: login.php");
+  exit;
+}
+
+
 $categories = new Categories();
 $categories = $categories->all();
 
 $menus = new Menu();
 $menus = $menus->all();
 
-
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <title>Ecommerce Dashboard &mdash; Stisla</title>
-<!-- General CSS Files -->
-<link rel="stylesheet" href="../assets/modules/bootstrap/css/bootstrap.min.css">
+  <!-- General CSS Files -->
+  <link rel="stylesheet" href="../assets/modules/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="../assets/modules/fontawesome/css/all.min.css">
 
   <!-- CSS Libraries -->
@@ -33,24 +41,28 @@ $menus = $menus->all();
   <!-- Template CSS -->
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/components.css">
-<!-- Start GA -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- Start GA -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
 
-  gtag('config', 'UA-94034622-3');
-</script>
-<!-- /END GA --></head>
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-94034622-3');
+  </script>
+  <!-- /END GA -->
+</head>
 
 <body>
   <div id="app">
     <div class="main-wrapper main-wrapper-1">
       <div class="navbar-bg"></div>
-      <?php include ('../component/layout/nav.php'); ?>
+      <?php include('../component/layout/nav.php'); ?>
       <!-- Sidebar -->
-      <?php include ('../component/layout/sidebar.php'); ?>
+      <?php include('../component/layout/sidebar.php'); ?>
       <!-- Main Content -->
       <div class="main-content">
         <section class="section">
@@ -58,7 +70,7 @@ $menus = $menus->all();
             <div class="col-lg-4 col-md-4 col-sm-12">
               <div class="card card-statistic-2">
                 <div class="card-stats">
-                  <div class="card-stats-title">Order Statistics - 
+                  <div class="card-stats-title">Order Statistics -
                     <div class="dropdown d-inline">
                       <a class="font-weight-600 dropdown-toggle" data-toggle="dropdown" href="#" id="orders-month">August</a>
                       <ul class="dropdown-menu dropdown-menu-sm">
@@ -84,7 +96,7 @@ $menus = $menus->all();
                       <div class="card-stats-item-label">Menu</div>
                     </div>
                     <div class="card-stats-item">
-                      <div class="card-stats-item-count"><?= count($categories  ); ?></div>
+                      <div class="card-stats-item-count"><?= count($categories); ?></div>
                       <div class="card-stats-item-label">Category</div>
                     </div>
                     <div class="card-stats-item">
@@ -101,7 +113,7 @@ $menus = $menus->all();
                     <h4>Menu</h4>
                   </div>
                   <div class="card-body">
-                   <?= count($menus); ?>
+                    <?= count($menus); ?>
                   </div>
                 </div>
               </div>
@@ -174,7 +186,9 @@ $menus = $menus->all();
                     <li class="media">
                       <img class="mr-3 rounded" width="55" src="../assets/img/products/product-3-50.png" alt="product">
                       <div class="media-body">
-                        <div class="float-right"><div class="font-weight-600 text-muted text-small">86 Sales</div></div>
+                        <div class="float-right">
+                          <div class="font-weight-600 text-muted text-small">86 Sales</div>
+                        </div>
                         <div class="media-title">oPhone S9 Limited</div>
                         <div class="mt-1">
                           <div class="budget-price">
@@ -191,7 +205,9 @@ $menus = $menus->all();
                     <li class="media">
                       <img class="mr-3 rounded" width="55" src="../assets/img/products/product-4-50.png" alt="product">
                       <div class="media-body">
-                        <div class="float-right"><div class="font-weight-600 text-muted text-small">67 Sales</div></div>
+                        <div class="float-right">
+                          <div class="font-weight-600 text-muted text-small">67 Sales</div>
+                        </div>
                         <div class="media-title">iBook Pro 2018</div>
                         <div class="mt-1">
                           <div class="budget-price">
@@ -208,7 +224,9 @@ $menus = $menus->all();
                     <li class="media">
                       <img class="mr-3 rounded" width="55" src="../assets/img/products/product-1-50.png" alt="product">
                       <div class="media-body">
-                        <div class="float-right"><div class="font-weight-600 text-muted text-small">63 Sales</div></div>
+                        <div class="float-right">
+                          <div class="font-weight-600 text-muted text-small">63 Sales</div>
+                        </div>
                         <div class="media-title">Headphone Blitz</div>
                         <div class="mt-1">
                           <div class="budget-price">
@@ -225,7 +243,9 @@ $menus = $menus->all();
                     <li class="media">
                       <img class="mr-3 rounded" width="55" src="../assets/img/products/product-3-50.png" alt="product">
                       <div class="media-body">
-                        <div class="float-right"><div class="font-weight-600 text-muted text-small">28 Sales</div></div>
+                        <div class="float-right">
+                          <div class="font-weight-600 text-muted text-small">28 Sales</div>
+                        </div>
                         <div class="media-title">oPhone X Lite</div>
                         <div class="mt-1">
                           <div class="budget-price">
@@ -242,7 +262,9 @@ $menus = $menus->all();
                     <li class="media">
                       <img class="mr-3 rounded" width="55" src="../assets/img/products/product-5-50.png" alt="product">
                       <div class="media-body">
-                        <div class="float-right"><div class="font-weight-600 text-muted text-small">19 Sales</div></div>
+                        <div class="float-right">
+                          <div class="font-weight-600 text-muted text-small">19 Sales</div>
+                        </div>
                         <div class="media-title">Old Camera</div>
                         <div class="mt-1">
                           <div class="budget-price">
@@ -297,7 +319,7 @@ $menus = $menus->all();
                           <div class="product-cta">
                             <a href="#" class="btn btn-primary">Detail</a>
                           </div>
-                        </div>  
+                        </div>
                       </div>
                     </div>
                     <div>
@@ -318,7 +340,7 @@ $menus = $menus->all();
                           <div class="product-cta">
                             <a href="#" class="btn btn-primary">Detail</a>
                           </div>
-                        </div>  
+                        </div>
                       </div>
                     </div>
                     <div>
@@ -339,7 +361,7 @@ $menus = $menus->all();
                           <div class="product-cta">
                             <a href="#" class="btn btn-primary">Detail</a>
                           </div>
-                        </div>  
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -432,7 +454,9 @@ $menus = $menus->all();
                       <tr>
                         <td><a href="#">INV-87239</a></td>
                         <td class="font-weight-600">Kusnadi</td>
-                        <td><div class="badge badge-warning">Unpaid</div></td>
+                        <td>
+                          <div class="badge badge-warning">Unpaid</div>
+                        </td>
                         <td>July 19, 2018</td>
                         <td>
                           <a href="#" class="btn btn-primary">Detail</a>
@@ -441,7 +465,9 @@ $menus = $menus->all();
                       <tr>
                         <td><a href="#">INV-48574</a></td>
                         <td class="font-weight-600">Hasan Basri</td>
-                        <td><div class="badge badge-success">Paid</div></td>
+                        <td>
+                          <div class="badge badge-success">Paid</div>
+                        </td>
                         <td>July 21, 2018</td>
                         <td>
                           <a href="#" class="btn btn-primary">Detail</a>
@@ -450,7 +476,9 @@ $menus = $menus->all();
                       <tr>
                         <td><a href="#">INV-76824</a></td>
                         <td class="font-weight-600">Muhamad Nuruzzaki</td>
-                        <td><div class="badge badge-warning">Unpaid</div></td>
+                        <td>
+                          <div class="badge badge-warning">Unpaid</div>
+                        </td>
                         <td>July 22, 2018</td>
                         <td>
                           <a href="#" class="btn btn-primary">Detail</a>
@@ -459,7 +487,9 @@ $menus = $menus->all();
                       <tr>
                         <td><a href="#">INV-84990</a></td>
                         <td class="font-weight-600">Agung Ardiansyah</td>
-                        <td><div class="badge badge-warning">Unpaid</div></td>
+                        <td>
+                          <div class="badge badge-warning">Unpaid</div>
+                        </td>
                         <td>July 22, 2018</td>
                         <td>
                           <a href="#" class="btn btn-primary">Detail</a>
@@ -468,7 +498,9 @@ $menus = $menus->all();
                       <tr>
                         <td><a href="#">INV-87320</a></td>
                         <td class="font-weight-600">Ardian Rahardiansyah</td>
-                        <td><div class="badge badge-success">Paid</div></td>
+                        <td>
+                          <div class="badge badge-success">Paid</div>
+                        </td>
                         <td>July 28, 2018</td>
                         <td>
                           <a href="#" class="btn btn-primary">Detail</a>
@@ -530,12 +562,14 @@ $menus = $menus->all();
           </div>
         </section>
       </div>
-     <?php include ('../component/layout/footer.php'); ?>
+      <?php include('../component/layout/footer.php'); ?>
     </div>
+
+   
   </div>
 
   <!-- General JS Scripts -->
-  
+
   <!-- General JS Scripts -->
   <script src="../assets/modules/jquery.min.js"></script>
   <script src="../assets/modules/popper.js"></script>
@@ -544,7 +578,7 @@ $menus = $menus->all();
   <script src="../assets/modules/nicescroll/jquery.nicescroll.min.js"></script>
   <script src="../assets/modules/moment.min.js"></script>
   <script src="../assets/js/stisla.js"></script>
-  
+
   <!-- JS Libraies -->
   <script src="../assets/modules/jquery.sparkline.min.js"></script>
   <script src="../assets/modules/chart.min.js"></script>
@@ -554,9 +588,10 @@ $menus = $menus->all();
 
   <!-- Page Specific JS File -->
   <script src="../assets/js/page/index.js"></script>
-  
+
   <!-- Template JS File -->
   <script src="../assets/js/scripts.js"></script>
   <script src="../assets/js/custom.js"></script>
 </body>
+
 </html>

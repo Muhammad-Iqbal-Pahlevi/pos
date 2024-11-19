@@ -49,7 +49,7 @@ $menus = $menus->search($keyword, $startData, $limit);
                             <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
                         </div>
                     </td>
-                    <td><?= $menu["name"] ?></td>
+                    <td><?= $menu["name_item"] ?></td>
                     <td>
                         <img alt="image" src="../public/img/items/<?= $menu["attachment"] ?>" class="rounded-circle" width="35" data-toggle="tooltip" title="Wildan Ahdian">
                     </td>

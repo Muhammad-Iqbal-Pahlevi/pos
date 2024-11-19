@@ -4,6 +4,12 @@ require_once __DIR__ . "/../Model/model.php";
 require_once __DIR__ . "/../Model/Category.php";
 require_once __DIR__ . "/../Model/Menu.php";
 
+
+if(!isset($_SESSION["full_name"])) {
+    header("Location: login.php");
+    exit;
+  }
+
 $categories = new Categories();
 $categories->all();
 $categories = $categories->all();
@@ -21,7 +27,7 @@ if(isset($_POST["submit"])){
   if(gettype($result) == "string"){
     echo "<script>alert('{$result}'); window.location = 'create-menu.php';</script>;";
   }else{
-    echo "<script>alert('Menu berhasil ditambahkan'); window.location = 'create-menu.php';</script>;";
+    echo "<script>alert('Menu berhasil ditambahkan {$result["name_item"]}'); window.location = 'index-menu.php';</script>;";
   }
 }
 
@@ -94,8 +100,8 @@ if(isset($_POST["submit"])){
                   </div>
                   <form action="" method="post" class="card-body" enctype="multipart/form-data">
                     <div class="form-group">
-                      <label for="name">Masukan Menu Baru</label>
-                      <input type="text" class="form-control" name="name" id="name">
+                      <label for="name_item">Masukan Menu Baru</label>
+                      <input type="text" class="form-control" name="name_item" id="name_item">
                     </div>
                     <div class="form-group">
                         <label class="form-control-label " for="attachment">Pilih Gambar</label>
@@ -111,7 +117,7 @@ if(isset($_POST["submit"])){
                       <label for="category_id">Pilih Category</label>
                       <select name="category_id" id="category_id" class="form-control selectric">
                         <?php foreach ($categories as $category) : ?>
-                        <option value="<?= $category["id"] ?>"><?= $category["name"] ?></option>
+                        <option value="<?= $category["id_category"] ?>"><?= $category["name_category"] ?></option>
                         <?php endforeach; ?>
                       </select>
                     </div>

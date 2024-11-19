@@ -1,3 +1,35 @@
+<?php
+
+require_once __DIR__ . "/../Model/model.php";
+require_once __DIR__ . "/../Model/Users.php";
+
+$user = new Users();
+
+if(!isset($_SESSION["full_name"])) {
+    header("Location: login.php");
+    exit;
+  }
+
+
+$id_user = $_SESSION["id_users"];  
+
+if(isset($_POST["submit"])){
+  if($_POST['neww_pass'] !== $_POST["confirm_pass"]){
+    echo "<script>alert('{$result}'); window.location = 'create-account.php';</script>;";
+  }
+
+  $result = $user->updatePassword($id_user, $_POST["old_pass"], $_POST["neww_pass"]);
+  if(gettype($result) == "string"){
+    echo "<script>alert('{$result}'); window.location = 'create-account.php';</script>;";
+  }else {
+    echo "<script>alert('{$result}'); window.location = 'create-account.php';</script>;";
+  }
+}
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,26 +89,25 @@
                     <div class="section-body">
                         <div class="row">
                             <div class="col-12 col-md-6 col-lg-6">
-                                <div class="card">
-
+                                <form class="card" method="post" action="">
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label>Password Terakhir</label>
-                                            <input type="password" class="form-control">
+                                            <label for="old_pass">Password Terakhir</label>
+                                            <input type="password" name="old_pass" id="old_pass" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <label>Password Baru</label>
-                                            <input type="passwrod" class="form-control">
+                                            <label for="neww_pass">Password Baru</label>
+                                            <input type="password" name="neww_pass" id="neww_pass" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <label>Konfirmasi Password Baru</label>
-                                            <input type="passwrod" class="form-control">
+                                            <label for="confirm_pass">Konfirmasi Password Baru</label>
+                                            <input type="password" id="confirm_pass" name="confirm_pass" class="form-control">
                                         </div>
                                         <div class="d-flex justify-content-end">
-                                            <button class="btn btn-primary" type="submit">Tambahkan</button>
+                                            <button class="btn btn-primary" type="submit" name="submit">Tambahkan</button>
                                         </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                             <div class="col-12 col-md-6 col-lg-6 d-flex align-items-center justify-content-center">
                                 <img src="../assets/img/image.svg" alt="" class="align-self-center">

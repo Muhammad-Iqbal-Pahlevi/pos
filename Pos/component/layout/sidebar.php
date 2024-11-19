@@ -36,7 +36,7 @@
       </li>
       <li class="menu-header">Info Account</li>
       <li class="dropdown">
-        <a href="#" class="nav-link has-dropdown"><i class="fas fa-th-large"></i> <span>Pemesanan</span></a>
+        <a href="#" class="nav-link has-dropdown"><i class="fas fa-th-large"></i> <span>Informasi Akun</span></a>
         <ul class="dropdown-menu">
           <li><a class="nav-link" href="index-account.php">Informasi Akun</a></li>
           <li><a class="nav-link" href="create-account.php">Ganti Password</a></li>

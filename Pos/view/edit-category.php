@@ -7,6 +7,16 @@ if(!isset($_SESSION["full_name"])) {
     header("Location: login.php");
     exit;
   }
+  
+  $id = $_GET["id"];
+  $categories = new Categories();
+  $detail = $categories->find($id);
+  
+  if(!isset($id)) {
+    header("Location: ../view/index-category.php");
+  }
+
+
 
 
 
@@ -15,13 +25,12 @@ if (isset($_POST['submit'])) {
     "name_category" => $_POST['name_category']
   ];
   if(strlen($_POST["name_category"]) > 225) {
-    echo "<script>alert('Nama kategori harus dibawah 225 karakter'); window.location = 'create-category.php';</script>;";
+    echo "<script>alert('Nama kategori harus dibawah 225 karakter'); window.location = 'edit-category.php';</script>;";
     die;
   }
-  $categories = new Categories();
-  $result = $categories->create($category);
+  $result = $categories->update($id, $category);
   if($result !== false){
-    echo "<script>alert('Kategori berhasil ditambahkan dengan nama {$result["name_category"]}'); window.location = 'index-category.php'; </script>;";
+    echo "<script>alert('Kategori berhasil diedit dengan nama {$result["name_category"]}'); window.location = '../view/index-category.php'; </script>;";
     die;
   }
 }
@@ -72,7 +81,7 @@ if (isset($_POST['submit'])) {
       <div class="main-content">
         <section class="section">
           <div class="section-header">
-            <h1>Tambah Kategori</h1>
+            <h1>Edit Kategori</h1>
           </div>
 
           <div class="section-body">
@@ -85,10 +94,10 @@ if (isset($_POST['submit'])) {
                   <form class="card-body" method="post" action="">
                     <div class="form-group">
                       <label for="name_category">Masukan Kategori Baru</label>
-                      <input type="text" class="form-control" name="name_category" id="name_category">
+                      <input type="text" class="form-control" value="<?= $detail[0]["name_category"] ?>" name="name_category" id="name_category">
                     </div>
                     <div class="d-flex justify-content-end">
-                      <button class="btn btn-primary" type="submit" name="submit">Tambahkan</button>
+                      <button class="btn btn-primary" type="submit" name="submit">Edit</button>
                     </div>
                   </form>
                 </div>

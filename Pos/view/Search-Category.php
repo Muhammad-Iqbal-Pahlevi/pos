@@ -44,7 +44,7 @@ $categories = $categories->search($keyword, $startData, $limit); // Pastikan ada
                             <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
                         </div>
                     </td>
-                    <td><?= $categori["name"] ?></td>
+                    <td><?= $categori["name_category"] ?></td>
                     <td>
                         <a href="#" class="btn btn-primary"><i class="fas fa-info-circle"></i></a>
                         <a href="#" class="btn btn-success"><i class="far fa-edit"></i></a>

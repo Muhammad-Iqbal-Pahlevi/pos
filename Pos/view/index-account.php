@@ -1,3 +1,19 @@
+<?php
+
+require_once __DIR__ . "/../Model/model.php";
+require_once __DIR__ . "/../Model/Users.php";
+
+if(!isset($_SESSION["full_name"])) {
+    header("Location: login.php");
+    exit;
+  }
+
+$users = new Users();
+$accounts = $users->all();
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +24,7 @@
 
   <!-- General CSS Files -->
   <link rel="stylesheet" href="../assets/modules/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../assets/modules/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="/../assets/modules/fontawesome/css/all.min.css">
 
   <!-- CSS Libraries -->
   <link rel="stylesheet" href="../assets/modules/bootstrap-daterangepicker/daterangepicker.css">
@@ -64,17 +80,18 @@
             <div class="col">
               <div class="col-12 col-sm-12">
                 <div class="card author-box card-primary">
+                  <?php foreach ($accounts as $account) : ?>
                   <div class="card-body">
                     <div class="author-box-left">
-                      <img alt="image" src="../assets/img/avatar/avatar-1.png" class="rounded-circle author-box-picture">
+                      <img alt="image" src="../public/img/users/<?= $account['avatar'] ?>" class="rounded-circle author-box-picture" width="100" height="100">
                       <div class="clearfix"></div>
                       <a href="#" class="btn btn-primary mt-3 follow-btn" data-follow-action="alert('follow clicked');" data-unfollow-action="alert('unfollow clicked');">Follow</a>
                     </div>
                     <div class="author-box-details">
                       <div class="author-box-name">
-                        <a href="#">Hasan Basri</a>
+                        <a href="#"><?= $account['full_name'] ?></a>
                       </div>
-                      <div class="author-box-job">Web Developer</div>
+                      <div class="author-box-job"><?= $account['email'] ?></div>
                       <div class="author-box-description">
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                           tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -102,6 +119,7 @@
                       </div>
                     </div>
                   </div>
+                  <?php endforeach; ?>
                 </div>
               </div>
               <div class="col-12 col-sm-12">

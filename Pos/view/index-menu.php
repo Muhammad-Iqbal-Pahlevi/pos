@@ -3,16 +3,20 @@
 require_once __DIR__ . "/../Model/model.php";
 require_once __DIR__ . "/../Model/Menu.php";
 
-$menus = new Menu();
+if(!isset($_SESSION["full_name"])) {
+    header("Location: login.php");
+    exit;
+  }
 
+$menus = new Menu();
 $limit = 3;
 $pageActive = isset($_GET["page"]) ? (int)$_GET["page"] : 1;
-$totalData = count($menus->all());
+$start = ($pageActive - 1) * $limit;
+$totalData = count($menus->all());  
 $totalPages = ceil($totalData / $limit);
 
-$startData = ($pageActive - 1) * $limit;
 
-$menus = $menus->paginate($startData, $limit); // Fungsi ini akan kita buat
+$menus = $menus->all_2($start, $limit); // Fungsi ini akan kita buat
 
 $prev = ($pageActive > 1) ? $pageActive - 1 : 1;
 $next = ($pageActive < $totalPages) ? $pageActive + 1 : $totalPages;
@@ -99,6 +103,7 @@ $next = ($pageActive < $totalPages) ? $pageActive + 1 : $totalPages;
                           <th>Attachment</th>
                           <th>Category_id</th>
                           <th>Price</th>
+                          <th>Date</th>
                           <th>Action</th>
                         </tr>
                         <?php foreach ($menus as $menu) : ?>
@@ -109,21 +114,23 @@ $next = ($pageActive < $totalPages) ? $pageActive + 1 : $totalPages;
                                 <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
                               </div>
                             </td>
-                            <td><?= $menu["name"] ?></td>
+                            <td><?= $menu["name_item"] ?></td>
                             <td>
-                              <img alt="image" src="../public/img/items/<?= $menu["attachment"] ?>" class="rounded-circle" width="35" data-toggle="tooltip" title="Wildan Ahdian">
+                              <img alt="image" src="../public/img/items/<?= $menu["attachment"] ?>" class="rounded" width="50" height="40" data-toggle="tooltip" title="Wildan Ahdian">
                             </td>
-                            <td class=""><?= $menu["category_id"] ?></td>
+                            <td><?= $menu["name_category"] ?></td>
                             <td>Rp. <?= $menu["price"] ?></td>
+                            <td> <?= $menu["created_at_item"] ?></td>
                             <td>
-                              <a href="#" class="btn btn-primary"><i class="fas fa-info-circle"></i></a>
-                              <a href="#" class="btn btn-success"><i class="far fa-edit"></i></a>
-                              <a href="#" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                              <button onclick="modalDetail(<?= $menu['id_item'] ?>, '<?= $menu['name_item'] ?>', '<?= $menu['attachment'] ?>', '<?= $menu['name_category'] ?>', 'Rp. <?= $menu['price'] ?>', '<?= $menu['created_at_item'] ?>')" class="btn btn-primary"><i class="fas fa-info-circle"></i></button>
+                              <a href="edit-menu.php?id=<?= $menu['id_item'] ?>" class="btn btn-success"><i class="far fa-edit"></i></a>
+                              <a href="../service/delete-menu.php?id=<?= $menu['id_item'] ?>" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
                             </td>
                           </tr>
                         <?php endforeach; ?>
                       </table>
-                      <div class="">
+                      <!-- PAGINATION -->
+                      <div class="d-flex justify-content-center">
                         <nav aria-label="Page navigation example">
                           <ul class="pagination mx-auto">
                             <li class="page-item <?= ($pageActive <= 1) ? 'disabled' : '' ?>">
@@ -155,6 +162,25 @@ $next = ($pageActive < $totalPages) ? $pageActive + 1 : $totalPages;
     </div>
     <?php include('../component/layout/footer.php'); ?>
   </div>
+  <!-- modal -->
+  <div class="modal fade" tabindex="-1" role="dialog" id="detailModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- <p>Modal body text goes here.</p> -->
+          </div>
+          <div class="modal-footer bg-whitesmoke br">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- General JS Scripts -->
@@ -181,7 +207,23 @@ $next = ($pageActive < $totalPages) ? $pageActive + 1 : $totalPages;
     keyword.on("keyup", () => {
       console.log(keyword.val())
       container.load("../component/search/search-menu.php?keyword=" + keyword.val())
-    })
+    });
+
+    function modalDetail(id, name, attachment, category_id, price, created_at_item) {
+        $('#detailModal .modal').empty();
+        let content = '<ul>';
+        content += `<li><strong>Id: </strong>${id}</li>`;
+        content += `<li><strong>Name: </strong>${name}</li>`;
+        content += `<li><strong>Image:  </strong><img src="../public/img/items/${attachment}" alt="Image" style="max-width: 100px; height: auto;"></li>`;
+        content += `<li><strong>Name Category: </strong>${category_id}</li>`;
+        content += `<li><strong>Price: </strong>${price}</li>`;
+        content += `<li><strong>Date: </strong>${created_at_item}</li>`;
+        content += '</ul>';
+
+        $('#detailModal .modal-body').html(content);
+        $('#detailModal .modal-title').text('Category Detail');
+        $('#detailModal').modal('show');  
+    }
   </script>
 </body>
 

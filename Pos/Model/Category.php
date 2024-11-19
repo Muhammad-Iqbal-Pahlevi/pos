@@ -6,6 +6,7 @@ require_once __DIR__ . "/model.php";
 class Categories extends Model{
 
     protected $table = "categories";
+    protected $primaryKey = "id_category";
 
 
        public function create($datas){
@@ -18,15 +19,15 @@ class Categories extends Model{
 
 
        public function find($id){
-          return parent::find_data($id, $this->table);
+          return parent::find_data($id, $this->primaryKey, $this->table);
        }
 
        public function update($id, $datas){
-          return parent::update_data($id, $datas, $this->table);
+          return parent::update_data($id, $this->primaryKey, $datas, $this->table);
        }
 
        public function delete($id){
-          return parent::delete_data($id, $this->table);
+          return parent::delete_data($id, $this->primaryKey, $this->table);
        }
 
        public function search($keyword, $start = null, $limit = null)
@@ -35,14 +36,9 @@ class Categories extends Model{
       if(isset($start) && isset($limit)){
          $queryLimit = " LIMIT $start, $limit";
       }
-      $keyword = " WHERE name LIKE '%{$keyword}%' $queryLimit";
+      $keyword = " WHERE name_category LIKE '%{$keyword}%' $queryLimit";
       return parent::search_data($keyword, $this->table);
     }
-
-      //  public function search($keyword){
-      //   $keyword = "WHERE name LIKE '%{$keyword}%'";
-      //   return parent::search_data($keyword, $this->table);
-      //  }
 
        public function paginate($start, $limit){
         return parent::paginate_data($this->table, $start, $limit);

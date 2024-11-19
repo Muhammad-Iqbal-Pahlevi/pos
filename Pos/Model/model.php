@@ -3,7 +3,12 @@
 require_once __DIR__ . "/../DB/conect.php";
 require_once __DIR__ . "/../interface/Model-Interface.php";
 
+session_start();
+
+
 abstract class Model extends Conect implements ModelInterface{
+
+    
     public function create_data($datas, $table) {
         $key = array_keys($datas);
         $value = array_values($datas);
@@ -34,15 +39,15 @@ abstract class Model extends Conect implements ModelInterface{
         return $result;
     }
 
-    public function find_data($id, $table) {
-        $query = "SELECT * FROM $table WHERE id = $id";
+    public function find_data($id, $colomn, $table) {
+        $query = "SELECT * FROM $table WHERE {$colomn} = $id";
         $result = mysqli_query($this->db, $query);
         $data = $this->convert_data($result);
         return $data;
         // return $result;
     }
 
-    public function update_data($id, $datas, $table) {
+    public function update_data($id, $colomn, $datas, $table) {
         
         $key = array_keys($datas);
         $value = array_values($datas);
@@ -50,11 +55,13 @@ abstract class Model extends Conect implements ModelInterface{
         for ($i = 0; $i < count($key); $i++) {
             $query .= $key[$i] . " = '" . $value[$i] . "'";
             if ($i < count($key) - 1) {
-            $query .= ", ";
+            $query .= " , ";
             }
         } 
 
-        $query .= " WHERE id = $id";
+        $query .= " WHERE {$colomn} = '$id'";
+        // echo $query;
+        // die;
         $result = mysqli_query($this->db, $query);
         if ($result) {
             return $datas;
@@ -63,8 +70,8 @@ abstract class Model extends Conect implements ModelInterface{
         }   
     }
 
-    public function delete_data($id, $table) {
-        $query = "DELETE FROM $table WHERE id = $id";
+    public function delete_data($id, $colomn, $table) {
+        $query = "DELETE FROM $table WHERE {$colomn} = $id";
         $result = mysqli_query($this->db, $query);
         return $result;
     }
@@ -83,5 +90,7 @@ abstract class Model extends Conect implements ModelInterface{
 
         return $this->convert_data($result);
     }
+
+    
 }
 

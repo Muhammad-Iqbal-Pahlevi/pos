@@ -1,26 +1,45 @@
 <?php
 
 require_once __DIR__ . "/../Model/model.php";
-require_once __DIR__ . "/../Model/Pemesanan.php";
+require_once __DIR__ . "/../Model/Category.php";
 require_once __DIR__ . "/../Model/Menu.php";
-require_once __DIR__ . "/../Model/Users.php";
+
 
 if(!isset($_SESSION["full_name"])) {
     header("Location: login.php");
     exit;
   }
 
-$user = new Users();
+  $id = $_GET["id"];
+  $categories = new Categories();
+  $categories = $categories->all();
+
+  if(!isset($id)) {
+    header("Location: index-menu.php");
+  }
+
 
 $menu = new Menu();
-$menus = $menu->all();
+$detail_menu = $menu->find($id);
 
-$pemesanan = new Pemesanan();
+if(isset($_POST["submit"])){
+  $datas = [
+    "post" => $_POST,
+    "files" => $_FILES,
+  ];
+  $result = $menu->update($id, $datas);
 
-
-
+  if(gettype($result) == "string"){
+    echo "<script>alert('{$result}'); window.location = 'edit-menu.php';</script>;";
+  }else{
+    echo "<script>alert('Menu berhasil diubah'); window.location = 'index-menu.php';</script>;";
+  }
+}
 
 ?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -80,51 +99,48 @@ $pemesanan = new Pemesanan();
           <div class="section-body">
             <div class="row">
               <div class="col-12 col-md-6 col-lg-6">
-
                 <div class="card">
                   <div class="card-header">
                     <h4>Isi Form Ini</h4>
                   </div>
-                  <div class="card-body">
+                  <form action="" method="post" class="card-body" enctype="multipart/form-data">
                     <div class="form-group">
-                      <label>Pemesan Baru</label>
-                      <input type="text" class="form-control">
+                      <label for="name_item">Masukan Menu Baru</label>
+                      <input type="text" class="form-control" name="name_item" id="name_item" value="<?= $detail_menu[0]["name_item"] ?>">
                     </div>
-                    <div class="form-group d-flex flex-column">
-                      <label>Catatan</label>
-                      <textarea name="" id="" class="form-control"></textarea>
-                    </div>
-
                     <div class="form-group">
-                      <label>Status</label>
-                      <select class="form-control selectric">
-                        <option>Paid</option>
-                        <option>Debt</option>
+                        <label class="form-control-label " for="attachment">Pilih Gambar</label>
+                        <div class="">
+                          <div class="custom-file">
+                            <input type="file" name="attachment" id="attachment" value="<?= $detail_menu[0]["attachment"] ?>" class="custom-file-input" id="site-logo">
+                            <label class="custom-file-label">Choose File</label>
+                          </div>
+                          <div class="form-text text-muted">The image must have a maximum size of 1MB</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="category_id">Pilih Category</label>
+                      <select name="category_id" id="category_id" class="form-control selectric">
+                        <?php foreach ($categories as $category) : ?>
+                        <option value="<?= $category["id_category"] ?>" <?php echo $category["id_category"] == $detail_menu[0]["category_id"] ? "selected" : "" ?>><?= $category["name_category"] ?></option>
+                        <?php endforeach; ?>
                       </select>
                     </div>
-                    <div class="d-flex justify-content-end">
-                      <button class="btn btn-primary" type="submit">Tambahkan</button>
+                    <div class="form-group">
+                      <label for="price">Price</label>
+                      <input type="number" class="form-control" name="price" id="price" value="<?= $detail_menu[0]["price"] ?>">
                     </div>
-                  </div>
+                    <div class="d-flex justify-content-end">
+                      <button class="btn btn-primary" type="submit" name="submit">Tambahkan</button>
+                    </div>
+                  </form>
                 </div>
               </div>
-
-                  <div class="col-12 col-md-6 d-md-flex align-items-center row">
-                    <?php foreach ($menus as $menu) : ?>
-                    <div onclick="addItem(<?= $menu['id_item'] ?>)" class="col-6 col-md-6 mb-2 p-2">
-                      <div class="card position-relative ">
-                        <img alt="image" src="../public/img/items/<?= $menu["attachment"] ?>" class="rounded" height="130">
-                        <span class="position-absolute top-0 mt-1 ml-1 start-100 translate-middle badge rounded-pill  bg-primary text-white">0</span>
-                        <div class="card-body">
-                          <h5 class="m-0 p-0"><?= $menu["name_item"] ?></h5>
-                          <p class="m-0 p-0">Rp. <?= $menu["price"] ?></p>
-                        </div>
-                      </div>
-                    </div>
-                    <?php endforeach; ?>
-                  </div>
-               
-
+              <div class="col-12 col-md-6 col-lg-6 d-flex align-items-center">
+                <div class="card">
+                  <img src="../assets/img/products/product-3.jpg" alt="">
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -159,17 +175,6 @@ $pemesanan = new Pemesanan();
   <!-- Template JS File -->
   <script src="../assets/js/scripts.js"></script>
   <script src="../assets/js/custom.js"></script>
-  <script>
-    const itemSelected = [{}]
-    function addItem(idItem, quantity = 1) {
-      itemSelected.push({
-        id: idItem,
-        q: quantity
-      })
-      alert(itemSelected.map((item) => item.id))
-    }
-  </script>
-  
 </body>
 
 </html>
